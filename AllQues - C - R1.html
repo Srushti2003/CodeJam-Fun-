@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALL Ques - C</title>
+
+    <style>
+        #leftQ1, #rightQ1{
+          width: 600px;
+          min-height: auto;
+          margin: 20px;
+          border: 2px dashed #fff;
+      }
+
+      #leftQ2, #rightQ2{
+          width: 600px;
+          min-height: auto;
+          margin: 20px;
+          border: 2px dashed #fff;
+      }
+
+      #leftQ3, #rightQ3{
+          width: 600px;
+          min-height: auto;
+          margin: 20px;
+          border: 2px dashed #fff;
+      }
+
+    
+
+.toolbar {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .timer {
+            font-size: 20px;
+            color: #fff;
+        }
+
+        body {
+    background-color: #0b0423;
+    color: white; /* Optionally set text color to white for better visibility */
+}
+
+
+/* Optional: Add some styling to the containers */
+.containerQ1 {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    flex-direction: column;
+
+}
+
+
+.containerQ2 {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+
+.containerQ3 {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+
+
+.listQ1{
+    background: #e91e63;
+    height: 60px;
+    margin: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 50px;
+    font-size: large;
+    padding-left: 30px;
+}
+
+.listQ2{
+    background: #e91e63;
+    height: 60px;
+    margin: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 50px;
+    font-size: large;
+    padding-left: 30px;
+}
+
+.listQ3{
+    background: #e91e63;
+    height: 60px;
+    margin: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 50px;
+    font-size: large;
+    padding-left: 30px;
+}
+
+
+
+.above-container {
+    height: 20px; /* Adjust the height as needed */
+}
+
+.below-container {
+    display: flex;
+    justify-content:left;
+    flex-direction: row;
+    padding-top: 30px;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 120px;
+    background-color: #0b0423;
+}
+
+.tool-bar {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #0b0423;
+}
+/*.circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: red;
+    margin-right: 10px;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.green {
+    background-color: rgb(65, 222, 65);
+}*/
+
+/* :::::::::::::: Presentation css */
+
+/* Locked */
+.lock {
+    width: 120px;  /* Adjust width */
+    height: 105px;  /* Adjust height */
+    border: 12px solid red;  /* Adjust border size */
+    border-radius: 24px;  /* Adjust border radius */
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    margin-top: 70px;
+}
+
+.lock:after {
+    content: "";
+    display: block;
+    background: red;
+    width: 12px;  /* Adjust width */
+    height: 30px;  /* Adjust height */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -15px 0 0 -6px;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.lock:before {
+    content: "";
+    display: block;
+    width: 48px;  /* Adjust width */
+    height: 48px;  /* Adjust height */
+    bottom: 100%;
+    position: absolute;
+    left: 50%;
+    margin-left: -36px;  /* Adjust margin */
+    border: 12px solid red;  /* Adjust border size */
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-bottom: 0;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+
+/* Unlocked */
+.unlocked {
+  transform: rotate(10deg);
+}
+.unlocked:before {
+  bottom: 130%;
+  left: 31%;
+  margin-left: -11.5px;
+  transform: rotate(-45deg);
+}
+.unlocked,
+.unlocked:before {
+  border-color: greenyellow;
+}
+.unlocked:after {
+  background: greenyellow;
+}
+
+
+
+
+.popup {
+    width: 400px;
+    background: #fff;
+    border-radius: 6px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 1000; /* Make sure the popup is above the overlay */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 0%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup img {
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.popup h2 {
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: #e91e63;
+}
+
+.popup p {
+    color: #0b0423;
+    font-size: larger;
+}
+
+.popup button {
+    width: 100%;
+    margin-top: 10%;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.timer {
+    font-size: 100px;
+}
+
+.timeup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    z-index: 1001; /* Make sure the message is above other elements */
+    font-size: 50px;
+    margin-top: 70px;
+}
+
+
+.custom-button {
+    border: 7px solid #1abff1; /* Fluorescent purple border */
+    background-color: transparent;
+    color: #8A2BE2;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-size: 70px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 8px 4px 2px #e22bb4;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.custom-button:hover {
+    background-color: #8A2BE2;
+    color: #fff;
+}
+
+
+/* Add this to your existing styles */
+
+.timeup-popup {
+    width: 400px;
+    height: 200px;
+    background: #fff;
+    border-radius: 6px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 10px 10px;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 1006;
+    margin-top: -100px;
+}
+
+.timeup-popup.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.timeup-popup h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: #e91e63;
+}
+
+.timeup-popup p {
+    color: #0b0423;
+    font-size: 50px;
+}
+
+
+
+
+/* You can further customize these styles based on your design preferences */
+
+
+      </style>
+
+</head>
+<body>
+    <div class="overlay" id="overlay">
+        <div class="popup" id="popup1">
+            <img src="tick.png">
+            <h2><b>Congratulations!!!</b></h2>
+            <p>You Successfully completed Question 1</p>
+            <p><b>Output: 353 is a palindrome</b></p>
+            <button type="button" onclick="closePopup1()">OK</button>
+        </div>
+
+        <div class="popup" id="popup2">
+            <img src="tick.png">
+            <h2><b>Congratulations!!!</b></h2>
+            <p>You Successfully completed Question 2</p>
+            <p><b>Output: Factorial of 7 is: 5040</b></p>
+            <button type="button" onclick="closePopup2()">OK</button>
+        </div>
+
+        <div class="popup" id="popup3">
+            <img src="tick.png">
+            <h2><b>Congratulations!!!</b></h2>
+            <p>You Successfully completed Question 3</p>
+            <p><b>Output: 4 to the power of 8 is: 65536</b></p>
+            <button type="button" onclick="closePopup3()">OK</button>
+        </div>
+
+        <div class="popup timeup-popup" id="timeUpPopup">
+            <h2><b>Round 2 will start in...</b></h2>
+            <p class="timer2">00:00:00</p>
+        </div>
+        
+        
+
+    </div>
+
+    <div class="tool-bar">
+        <div class="timer" id="timer">00:00:00</div>
+        <!--<div class="homepgbtn">
+            <a href="RoundsPage.html">
+                <img src="home.png" id="home" alt="Home Button" width="100" height="100">
+            </a>
+        </div>-->
+        <a href="AllQues - C - R2.html" class="custom-button" style="pointer-events: none; opacity: 0.5;">Round 2</a>
+    </div>
+    <div class="main-container">
+        <!-- Container 1 -->
+    <div class="containerQ1" id="Q1">
+        <div class="above-container"><h1>Question 1 - Palindrome or not using an iterative approach</h1>     
+        </div>
+        <div class="below-container">
+            <div id="leftQ1">
+                <div class="listQ1" draggable="true" data-text="remainder = n%10;" id="6Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text="else {" id="11Q1">      
+                </div> 
+                <div class="listQ1" draggable="true" data-text="if (number == reverse) {" id="9Q1">    
+                </div> 
+                <div class="listQ1" draggable="true" data-text="int n = 353, reverse = 0, remainder, number;" id="3Q1">     
+                </div> 
+                <div class="listQ1" draggable="true" data-text="return 0;}" id="13Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text="int main() {" id="2Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text="number = n;" id="4Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text="reverse = reverse*10 + remainder;" id="7Q1">   
+                </div>  
+                <div class="listQ1" draggable="true" data-text='printf("\n%d is not a palindrome\n", number); }' id="12Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text="while( n!=0 ) {" id="5Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text="#include <stdio.h>" id="1Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text='printf("\n%d is a palindrome\n", number); }' id="10Q1">   
+                </div> 
+                <div class="listQ1" draggable="true" data-text="n /= 10; }" id="8Q1">   
+                </div> 
+            </div>
+            <div id="rightQ1"></div>
+            <!--<div class="circle" id="circleQ1"></div>-->
+            <span class="lock" id="lockQ1"></span>
+        </div>
+
+        
+
+    </div>
+
+    <!-- Container 2 -->
+    <div class="containerQ2" id="Q2">
+        <div class="above-container"><h1>Question 2 - Program to find factorial of a given number</h1>
+           
+        </div>
+        <div class="below-container">
+            <div id="leftQ2">
+                <div class="listQ2" draggable="true" data-text='printf("\nFactorial of %d is: %d",num, fact);' id="6Q2">   
+                </div> 
+                <div class="listQ2" draggable="true" data-text='return(n*find_factorial(n-1)); }' id="11Q2">      
+                </div> 
+                <div class="listQ2" draggable="true" data-text="int num = 7, fact;" id="4Q2">    
+                </div> 
+                <div class="listQ2" draggable="true" data-text="return(1); }" id="10Q2">     
+                </div> 
+                <div class="listQ2" draggable="true" data-text="#include<stdio.h>" id="1Q2">   
+                </div> 
+                <div class="listQ2" draggable="true" data-text="int find_factorial(int n) {" id="8Q2">   
+                </div> 
+                <div class="listQ2" draggable="true" data-text='int main() {' id="3Q2">   
+                </div> 
+                <div class="listQ2" draggable="true" data-text="if(n==0) {" id="9Q2">   
+                </div>  
+                <div class="listQ2" draggable="true" data-text="int find_factorial(int);" id="2Q2">   
+                </div> 
+                <div class="listQ2" draggable="true" data-text="return 0; }" id="7Q2">   
+                </div> 
+                <div class="listQ2" draggable="true" data-text="fact = find_factorial(num);" id="5Q2">   
+                </div> 
+            </div>
+            <div id="rightQ2"></div>
+            <span class="lock" id="lockQ2"></span>
+        </div>
+
+       
+
+    </div>
+
+    <!-- Container 3 -->
+    <div class="containerQ3" id="Q3">
+        <div class="above-container"><h1>Question 3 - Program to calculate power of a number using loop</h1>
+            
+        </div>
+        <div class="below-container">
+            <div id="leftQ3">
+                <div class="listQ3" draggable="true" data-text='long double result = 1.0;' id="4Q3">   
+                </div> 
+                <div class="listQ3" draggable="true" data-text='int temp = exp;' id="5Q3">      
+                </div> 
+                <div class="listQ3" draggable="true" data-text='printf("%d to the power %d is: %.0Lf", number, exp, result);' id="9Q3">    
+                </div> 
+                <div class="listQ3" draggable="true" data-text="return 0; }" id="10Q3">     
+                </div> 
+                <div class="listQ3" draggable="true" data-text="int number = 4, exp = 8;" id="3Q3">   
+                </div> 
+                <div class="listQ3" draggable="true" data-text="result *= number;" id="7Q3">   
+                </div> 
+                <div class="listQ3" draggable="true" data-text='while (temp != 0) {' id="6Q3">   
+                </div> 
+                <div class="listQ3" draggable="true" data-text="int main() {" id="2Q3">   
+                </div>  
+                <div class="listQ3" draggable="true" data-text="--temp; }" id="8Q3">   
+                </div> 
+                <div class="listQ3" draggable="true" data-text="#include <stdio.h>" id="1Q3">   
+                </div> 
+            </div>
+            <div id="rightQ3"></div>
+            <span class="lock" id="lockQ3"></span>
+        </div>
+
+        
+
+    </div>
+    </div>
+    
+
+
+
+<script>
+
+
+// Timer Function
+let timer;
+        let timeRemaining = 900; // Set the initial time
+
+        function startTimer() {
+            timer = setInterval(function () {
+                document.getElementById("timer").innerText = formatTime(timeRemaining);
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    deactivateContainers();
+                }
+
+                timeRemaining--;
+            }, 1000);
+        }
+
+        function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
+
+        function deactivateContainers() {
+            // Disable interaction with containers
+            let containers = document.querySelectorAll('.containerQ1, .containerQ2, .containerQ3');
+
+            containers.forEach(container => {
+                container.style.pointerEvents = 'none';
+                container.style.opacity = '0.5'; // You can adjust the opacity as needed
+            });
+            showTimeUpMessage();
+            showTimeUpPopup()
+        }
+
+        function showTimeUpMessage() {
+    let overlay = document.querySelector('.overlay');
+    let timeUpMessage = document.createElement('div');
+    timeUpMessage.className = 'timeup';
+    timeUpMessage.innerHTML = '<h1>Time Up!!!</h1>';
+    overlay.appendChild(timeUpMessage);
+    showOverlay();
+}
+
+
+let screen = document.getElementsByClassName("overlay");
+
+function showOverlay() {
+    screen[0].style.display = "block";
+}
+
+function hideOverlay() {
+    screen[0].style.display = "none";
+}
+
+
+
+function showTimeUpPopup() {
+    let timeUpPopup = document.getElementById("timeUpPopup");
+    timeUpPopup.classList.add("open-popup");
+    showOverlay();
+    startRound2Timer();
+}
+
+function closeTimeUpPopup() {
+    let timeUpPopup = document.getElementById("timeUpPopup");
+    timeUpPopup.classList.remove("open-popup");
+    hideOverlay();
+}
+
+function startRound2Timer() {
+    let round2Timer = 1500; // Set the initial time for Round 2
+    let timer2Div = document.querySelector('.timer2');
+
+    function updateRound2Timer() {
+        timer2Div.textContent = formatTime(round2Timer);
+
+        if (round2Timer <= 0) {
+            clearInterval(round2TimerInterval);
+            // Enable Round 2 button and allow interaction
+            document.querySelector('.custom-button').style.pointerEvents = 'auto';
+            document.querySelector('.custom-button').style.opacity = '1';
+        }
+
+        round2Timer--;
+    }
+
+    let round2TimerInterval = setInterval(updateRound2Timer, 1000);
+}
+
+
+
+
+
+/*QUESTION1 ------------------- */
+let listQ1s = document.getElementsByClassName("listQ1");
+let rightQ1Box = document.getElementById("rightQ1");
+let leftQ1Box = document.getElementById("leftQ1");
+
+let pointsQ1 = 0;
+
+let correctOrderIdsQ1 = ["1Q1", "2Q1", "3Q1", "4Q1", "5Q1", "6Q1", "7Q1", "8Q1", "9Q1", "10Q1", "11Q1", "12Q1", "13Q1"];
+
+for (listQ1 of listQ1s) {
+    listQ1.addEventListener("dragstart", function(e) {
+        let selected = e.target; 
+
+        rightQ1Box.addEventListener("dragover", function(e) {
+            e.preventDefault();
+        });
+
+        rightQ1Box.addEventListener("drop", function(e) {
+            rightQ1Box.appendChild(selected);
+            checkOrder1();
+            selected = null;
+        });
+
+        leftQ1Box.addEventListener("dragover", function(e) {
+            e.preventDefault();
+        });
+
+        leftQ1Box.addEventListener("drop", function(e) {
+            leftQ1Box.appendChild(selected);
+            selected = null;
+        });
+    })
+}
+
+
+function checkOrder1() {
+    let currentOrder = Array.from(rightQ1Box.children).map(element => element.id);
+    if (arraysEqual(currentOrder, correctOrderIdsQ1)) {
+        //alert("Correct order for Question 1!");
+        //document.getElementById("circleQ1").classList.add("green");
+        document.getElementById("lockQ1").classList.add("unlocked");
+        openPopup1();
+    } 
+    else {
+        document.getElementById("lockQ1").classList.remove("unlocked");
+    }
+        }
+
+        const listQ1Elements = document.querySelectorAll('.listQ1');
+
+        listQ1Elements.forEach(element => {
+            const textContent = element.getAttribute('data-text');
+            element.textContent = textContent;
+        });
+
+        function arraysEqual(arr1, arr2) {
+            return JSON.stringify(arr1) === JSON.stringify(arr2);
+        }
+
+let popup1 = document.getElementById("popup1");
+function openPopup1() {
+
+    popup1.classList.add("open-popup");
+    showOverlay();
+}
+function closePopup1() {
+    popup1.classList.remove("open-popup");
+    hideOverlay();
+}
+
+/*QUESTION2 ------------------- */
+
+
+let listQ2s = document.getElementsByClassName("listQ2");
+let rightQ2Box = document.getElementById("rightQ2");
+let leftQ2Box = document.getElementById("leftQ2");
+let pointsQ2 = 0;
+
+let correctOrderIdsQ2 = ["1Q2", "2Q2", "3Q2", "4Q2", "5Q2", "6Q2", "7Q2", "8Q2", "9Q2", "10Q2", "11Q2"];
+
+for (listQ2 of listQ2s) {
+    listQ2.addEventListener("dragstart", function(e) {
+        let selected = e.target; 
+
+        rightQ2Box.addEventListener("dragover", function(e) {
+            e.preventDefault();
+        });
+
+        rightQ2Box.addEventListener("drop", function(e) {
+            rightQ2Box.appendChild(selected);
+            checkOrder2();
+            selected = null;
+        });
+
+        leftQ2Box.addEventListener("dragover", function(e) {
+            e.preventDefault();
+        });
+
+        leftQ2Box.addEventListener("drop", function(e) {
+            leftQ2Box.appendChild(selected);
+            selected = null;
+        });
+    })
+}
+
+
+function checkOrder2() {
+    let currentOrder = Array.from(rightQ2Box.children).map(element => element.id);
+    if (arraysEqual(currentOrder, correctOrderIdsQ2)) {
+        //alert("Correct order for Question 2!");
+        document.getElementById("lockQ2").classList.add("unlocked");
+        openPopup2();
+    } 
+    else {
+        document.getElementById("lockQ2").classList.remove("unlocked");
+    }
+        }
+
+        const listQ2Elements = document.querySelectorAll('.listQ2');
+
+        listQ2Elements.forEach(element => {
+            const textContent = element.getAttribute('data-text');
+            element.textContent = textContent;
+        });
+
+        function arraysEqual(arr1, arr2) {
+            return JSON.stringify(arr1) === JSON.stringify(arr2);
+        }
+
+let popup2 = document.getElementById("popup2");
+function openPopup2() {
+    popup2.classList.add("open-popup");
+    showOverlay();
+}
+function closePopup2() {
+    popup2.classList.remove("open-popup");
+    hideOverlay();
+}
+
+
+/*QUESTION3 ------------------- */
+let listQ3s = document.getElementsByClassName("listQ3");
+let rightQ3Box = document.getElementById("rightQ3");
+let leftQ3Box = document.getElementById("leftQ3");
+let pointsQ3 = 0;
+
+let correctOrderIdsQ3 = ["1Q3", "2Q3", "3Q3", "4Q3", "5Q3", "6Q3", "7Q3", "8Q3", "9Q3", "10Q3"];
+
+for (listQ3 of listQ3s) {
+    listQ3.addEventListener("dragstart", function(e) {
+        let selected = e.target; 
+
+        rightQ3Box.addEventListener("dragover", function(e) {
+            e.preventDefault();
+        });
+
+        rightQ3Box.addEventListener("drop", function(e) {
+            rightQ3Box.appendChild(selected);
+            checkOrder3();
+            selected = null;
+        });
+
+        leftQ3Box.addEventListener("dragover", function(e) {
+            e.preventDefault();
+        });
+
+        leftQ3Box.addEventListener("drop", function(e) {
+            leftQ3Box.appendChild(selected);
+            selected = null;
+        });
+    })
+}
+
+
+function checkOrder3() {
+    let currentOrder = Array.from(rightQ3Box.children).map(element => element.id);
+    if (arraysEqual(currentOrder, correctOrderIdsQ3)) {
+        //alert("Correct order for Question 3!");
+        document.getElementById("lockQ3").classList.add("unlocked");
+        openPopup3();
+    } 
+    else {
+        document.getElementById("lockQ3").classList.remove("unlocked");
+    }
+        }
+
+        const listQ3Elements = document.querySelectorAll('.listQ3');
+
+        listQ3Elements.forEach(element => {
+            const textContent = element.getAttribute('data-text');
+            element.textContent = textContent;
+        });
+
+        function arraysEqual(arr1, arr2) {
+            return JSON.stringify(arr1) === JSON.stringify(arr2);
+        }
+
+let popup3 = document.getElementById("popup3");
+function openPopup3() {
+    popup3.classList.add("open-popup");
+    showOverlay();
+    //screen.width.add(100%);
+    //screen.height.add(100%);
+}
+function closePopup3() {
+    popup3.classList.remove("open-popup");
+    hideOverlay();
+}
+
+
+
+startTimer();
+
+</script>
+
+</body>
+</html>

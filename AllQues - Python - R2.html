@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round 2 - Python</title>
+
+    <style>
+        .textQ1 {
+    width: 500px; 
+    height: 300px;
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    border: none;
+    font-family:monospace;
+    outline: none;
+    resize: none;
+}
+.textQ1:focus {
+border: none; /* Remove border when focused */
+}
+
+#leftQ1 {
+    width: 500px;
+    height: 200px;
+    margin-right: 40px;
+    margin-left: 100px;
+    border: 2px solid #00ccff;
+    padding: 20px;
+}
+
+#rightQ1 {
+    width: 500px;
+    height: 200px;
+    margin-right: 90px;
+    margin-left: 40px;
+    border: 2px solid #bf1414;
+    padding: 20px;
+}
+
+body {
+    margin: 10px; /* Remove default body margin */
+    background-color: black;
+  }
+
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 120px;
+    background-color: black;
+}
+
+.tool-bar {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: black;
+}
+  
+  
+  .containerQ1 {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+
+  .containerQ2 {
+    display: flex;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    flex-direction: column;
+  }
+  
+  
+
+  .text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .scoreQ1 {
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    gap: 40px;
+  }
+
+  .scoreQ2 {
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    gap: 40px;
+  }
+
+  .ques {
+    display: flex;
+    flex-direction: column;
+    color: white;
+  }
+  
+
+.circular-progress{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: conic-gradient(#1fdee1 0.5deg, #ededed 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.circular-progress::before{
+    content: "";
+    position: absolute;
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+
+.progress-value{
+    position: relative;
+    font-size: 40px;
+    font-weight: 600;
+    color: #65dce4;
+}
+
+.popup {
+    width: 400px;
+    background: #fff;
+    border-radius: 6px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 1000; /* Make sure the popup is above the overlay */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 0%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup img {
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.popup h2 {
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: #e91e63;
+}
+
+.popup p {
+    color: #0b0423;
+    font-size: larger;
+}
+
+.popup button {
+    width: 100%;
+    margin-top: 10%;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+
+
+.homepgbtn {
+    margin-left: auto;
+}
+
+.timer {
+    font-size: 100px;
+    color: white;
+}
+
+.timeup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    z-index: 1001; /* Make sure the message is above other elements */
+    font-size: 50px;
+    margin-top: 70px;
+}
+
+.above-container {
+    
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.custom-button {
+    border: 7px solid #1abff1; /* Fluorescent purple border */
+    background-color: transparent;
+    color: #8A2BE2;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-size: 70px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 8px 4px 2px #e22bb4;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.custom-button:hover {
+    background-color: #8A2BE2;
+    color: #fff;
+}
+
+.timeup-popup {
+    width: 400px;
+    height: 200px;
+    background: #fff;
+    border-radius: 6px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 10px 10px;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+    z-index: 1006;
+    margin-top: -100px;
+}
+
+.timeup-popup.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.timeup-popup h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+    color: #e91e63;
+}
+
+.timeup-popup p {
+    color: #0b0423;
+    font-size: 50px;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay">
+        <div class="popup" id="popup1">
+            <img src="tick.png">
+            <h2><b>Congratulations!!!</b></h2>
+            <p><b>You Successfully solved all Errors of Question 1</b></p>
+            <button type="button" onclick="closePopup1()">OK</button>
+        </div>
+
+        <div class="popup" id="popup2">
+            <img src="tick.png">
+            <h2><b>Congratulations!!!</b></h2>
+            <p><b>You Successfully solved all Errors of Question 2</b></p>
+            <button type="button" onclick="closePopup2()">OK</button>
+        </div>
+
+        <div class="popup timeup-popup" id="timeUpPopup">
+            <h2><b>Round 3 will start in...</b></h2>
+            <p class="timer2">00:00:00</p>
+        </div>
+
+
+    </div>
+
+    <div class="tool-bar">
+        <div class="timer" id="timer">00:00:00</div>
+        <!--<div class="homepgbtn">
+            <a href="RoundsPage.html">
+                <img src="home.png" id="home" alt="Home Button" width="100" height="100">
+            </a>
+        </div>-->
+        <a href="https://www.onlinegdb.com/online_python_compiler" class="custom-button" style="pointer-events: none; opacity: 0.5;">Round 3</a>
+    </div>
+
+    <div class="main-container">
+    <!-- Container 1 -->
+    <div class="containerQ1" id="Q1">
+        <div class="above-container">
+                <h1>Question 1 - Print the following pattern</h1>
+                <h2>Output:</h2>
+                <h1><pre>
+                            *
+                          * *
+                        * * *
+                      * * * *
+                    * * * * *
+                </pre></h1>
+            </div>
+        <div class="text">
+            <div id="leftQ1">
+                <textarea class="textQ1" spellcheck="false" id="userInput1" oninput="compareText1()">
+n = 5                                       
+for i in range(size)                  
+    for i in range(1, size + i):    
+        printf(" ")                          
+    for k in range(0, j + 5):        
+        print("*"; end="")                 
+    print()</textarea>
+            </div>
+            <div id="rightQ1">
+                <textarea class="textQ1" spellcheck="false" readonly>
+n = 5                                       
+for i in range(size)                  
+    for i in range(1, size + i):    
+        printf(" ")                          
+    for k in range(0, j + 5):        
+        print("*"; end="")                 
+    print()</textarea>
+            </div>
+        </div>
+        <div class="scoreQ1">
+            <div class="circular-progress" id="e1Q1">
+                <span class="progress-value">1</span>
+            </div>
+            <div class="circular-progress" id="e2Q1">
+                <span class="progress-value">2</span>
+            </div>
+            <div class="circular-progress" id="e3Q1">
+                <span class="progress-value">3</span>
+            </div>
+            <div class="circular-progress" id="e4Q1">
+                <span class="progress-value">4</span>
+            </div>
+            <div class="circular-progress" id="e5Q1">
+                <span class="progress-value">5</span>
+            </div>
+            <div class="circular-progress" id="e6Q1">
+                <span class="progress-value">6</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container 2 -->
+    <div class="containerQ2" id="Q2">
+        <div class="above-container">
+            <h1>Question 2 - Fibonacci Series</h1>
+            <h2>Output: Fibonacci Series: 0, 1, 1, 2, 3</h2>
+        </div>
+        <div class="text">
+            <div id="leftQ1">
+                <textarea class="textQ1" spellcheck="false" id="userInput2" oninput="compareText2()">
+num = 4                
+n1, n2 = 0, 0                                                    
+print("Fibonacci Series:", n1, n2, end=" ")                  
+for i in range(2, num)
+    n3 = n1 * n2                                                   
+    n1 = n2
+    n2 = n2                                                       
+    print(n1, end=" ")                                           
+print()</textarea>
+            </div>
+            <div id="rightQ1">
+                <textarea class="textQ1" spellcheck="false">
+num = 4              
+n1, n2 = 0, 0                                                    
+print("Fibonacci Series:", n1, n2, end=" ")                  
+for i in range(2, num)
+    n3 = n1 * n2                                                   
+    n1 = n2
+    n2 = n2                                                       
+    print(n1, end=" ")                                           
+print()</textarea>
+            </div>
+        </div>
+        <div class="scoreQ2">
+            <div class="circular-progress" id="e1Q2">
+                <span class="progress-value">1</span>
+            </div>
+            <div class="circular-progress" id="e2Q2">
+                <span class="progress-value">2</span>
+            </div>
+            <div class="circular-progress" id="e3Q2">
+                <span class="progress-value">3</span>
+            </div>
+            <div class="circular-progress" id="e4Q2">
+                <span class="progress-value">4</span>
+            </div>
+            <div class="circular-progress" id="e5Q2">
+                <span class="progress-value">5</span>
+            </div>
+            <div class="circular-progress" id="e6Q2">
+                <span class="progress-value">6</span>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+    <script>
+// Timer Function
+let timer;
+        let timeRemaining = 600; // Set the initial time
+
+        function startTimer() {
+            timer = setInterval(function () {
+                document.getElementById("timer").innerText = formatTime(timeRemaining);
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timer);
+                    deactivateContainers();
+                }
+
+                timeRemaining--;
+            }, 1000);
+        }
+
+        function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
+
+        function deactivateContainers() {
+            // Disable interaction with containers
+            let containers = document.querySelectorAll('.containerQ1, .containerQ2, .containerQ3');
+
+            containers.forEach(container => {
+                container.style.pointerEvents = 'none';
+                container.style.opacity = '0.5'; // You can adjust the opacity as needed
+            });
+            showTimeUpMessage();
+            showTimeUpPopup()
+        }
+
+        function showTimeUpMessage() {
+    let overlay = document.querySelector('.overlay');
+    let timeUpMessage = document.createElement('div');
+    timeUpMessage.className = 'timeup';
+    timeUpMessage.innerHTML = '<h1>Time Up!!!</h1>';
+    overlay.appendChild(timeUpMessage);
+    showOverlay();
+}
+
+
+let screen = document.getElementsByClassName("overlay");
+
+function showOverlay() {
+    screen[0].style.display = "block";
+}
+
+function hideOverlay() {
+    screen[0].style.display = "none";
+}
+
+
+
+function showTimeUpPopup() {
+    let timeUpPopup = document.getElementById("timeUpPopup");
+    timeUpPopup.classList.add("open-popup");
+    showOverlay();
+    startRound2Timer();
+}
+
+function closeTimeUpPopup() {
+    let timeUpPopup = document.getElementById("timeUpPopup");
+    timeUpPopup.classList.remove("open-popup");
+    hideOverlay();
+} 
+
+function startRound2Timer() {
+    let round2Timer = 600; // Set the initial time for Round 2
+    let timer2Div = document.querySelector('.timer2');
+
+    function updateRound2Timer() {
+        timer2Div.textContent = formatTime(round2Timer);
+
+        if (round2Timer <= 0) {
+            clearInterval(round2TimerInterval);
+            // Enable Round 2 button and allow interaction
+            document.querySelector('.custom-button').style.pointerEvents = 'auto';
+            document.querySelector('.custom-button').style.opacity = '1';
+        }
+
+        round2Timer--;
+    }
+
+    let round2TimerInterval = setInterval(updateRound2Timer, 1000);
+}
+
+
+        //Q1
+        function progressbar1(progressBarId1) {
+        let circularProgress1 = document.getElementById(progressBarId1);
+
+        let progressValue1 = 0;
+        let progressStartValue1 = 0;
+        let progressEndValue1 = 100;
+        let speed1 = 1;
+
+        // Check if the progress bar is already full
+        if (circularProgress1.classList.contains("full")) {
+            return;
+        }
+
+        let progress1 = setInterval(() => {
+            progressStartValue1++;
+            console.log(progressStartValue1);
+
+            progressValue1.textContent = `${progressStartValue1}%`;
+            circularProgress1.style.background = `conic-gradient(#00ccff ${progressStartValue1 * 3.6}deg, #ededed 0deg)`;
+
+            if (progressStartValue1 == progressEndValue1) {
+                // Mark the progress bar as full
+                circularProgress1.classList.add("full");
+                clearInterval(progress1);
+
+                if (areAllProgressBarsFull("Q1")) {
+                        // Display alert message when all progress bars are full
+                        //alert("All progress bars in Container 1 are full!");
+                        openPopup1();
+                    }
+            }
+        }, speed1);
+    }
+
+    var lineE1Q1 = 'size = 5';
+    var lineE2Q1 = 'for i in range(size):';
+    var lineE3Q1 = "for j in range(1, size - i):";
+    var lineE4Q1 = 'print(" ", end="")';
+    var lineE5Q1 = "for k in range(0, i + 1):";
+    var lineE6Q1 = 'print("*", end="")';
+
+    function compareText1() {
+        var codeTextArea1 = document.getElementById('userInput1');
+        var codeLines1 = codeTextArea1.value.split('\n');
+        
+        if(codeLines1[0] && codeLines1[0].trim() === lineE1Q1.trim()){
+            //alert("Line 1 match");
+            progressbar1("e1Q1");
+        }
+        if(codeLines1[1] && codeLines1[1].trim() === lineE2Q1.trim()){
+            //alert("Line 3 match");
+            progressbar1("e2Q1");
+        }
+        if(codeLines1[2] && codeLines1[2].trim() === lineE3Q1.trim()){
+            
+            progressbar1("e3Q1");
+        }
+        if(codeLines1[3] && codeLines1[3].trim() === lineE4Q1.trim()){
+            //alert("Line 8 match");
+            progressbar1("e4Q1");
+        }
+        if(codeLines1[4] && codeLines1[4].trim() === lineE5Q1.trim()){
+            //alert("Line 17 match");
+            progressbar1("e5Q1");
+        }
+        if(codeLines1[5] && codeLines1[5].trim() === lineE6Q1.trim()){
+            //alert("Line 19 match");
+            progressbar1("e6Q1");
+        }
+    }
+    setInterval(compareText1(),1000);
+
+    let popup1 = document.getElementById("popup1");
+function openPopup1() {
+
+    popup1.classList.add("open-popup");
+    showOverlay();
+}
+function closePopup1() {
+    popup1.classList.remove("open-popup");
+    hideOverlay();
+}
+
+    //Q2
+
+    function progressbar2(progressBarId2) {
+        let circularProgress2 = document.getElementById(progressBarId2);
+
+        let progressValue2 = 0;
+        let progressStartValue2 = 0;
+        let progressEndValue2 = 100;
+        let speed2 = 1;
+
+        // Check if the progress bar is already full
+        if (circularProgress2.classList.contains("full")) {
+            return;
+        }
+
+        let progress2 = setInterval(() => {
+            progressStartValue2++;
+            console.log(progressStartValue2);
+
+            progressValue2.textContent = `${progressStartValue2}%`;
+            circularProgress2.style.background = `conic-gradient(#00ccff ${progressStartValue2 * 3.6}deg, #ededed 0deg)`;
+
+            if (progressStartValue2 == progressEndValue2) {
+                // Mark the progress bar as full
+                circularProgress2.classList.add("full");
+                clearInterval(progress2);
+
+                if (areAllProgressBarsFull("Q2")) {
+                        // Display alert message when all progress bars are full
+                        //alert("All progress bars in Container 1 are full!");
+                        openPopup2();
+                    }
+            }
+        }, speed2);
+    }
+
+    var lineE1Q2 = 'num = 5';
+    var lineE2Q2 = 'n1, n2 = 0, 1';
+    var lineE3Q2 = "for i in range(2, num):";
+    var lineE4Q2 = "n3 = n1 + n2";
+    var lineE5Q2 = "n2 = n3";
+    var lineE6Q2 = 'print(n3, end=" ")';
+
+    function compareText2() {
+        var codeTextArea2 = document.getElementById('userInput2');
+        var codeLines2 = codeTextArea2.value.split('\n');
+        
+        if(codeLines2[0] && codeLines2[0].trim() === lineE1Q2.trim()){
+            //alert("Line 1 match");
+            progressbar2("e1Q2");
+        }
+        if(codeLines2[1] && codeLines2[1].trim() === lineE2Q2.trim()){
+            //alert("Line 3 match");
+            progressbar2("e2Q2");
+        }
+        if(codeLines2[3] && codeLines2[3].trim() === lineE3Q2.trim()){
+            //alert("Line 6 match");
+            progressbar2("e3Q2");
+        }
+        if(codeLines2[4] && codeLines2[4].trim() === lineE4Q2.trim()){
+            
+            progressbar2("e4Q2");
+        }
+        if(codeLines2[6] && codeLines2[6].trim() === lineE5Q2.trim()){
+            
+            progressbar2("e5Q2");
+        }
+        if(codeLines2[7] && codeLines2[7].trim() === lineE6Q2.trim()){
+           
+            progressbar2("e6Q2");
+        }
+    }
+    setInterval(compareText2(),1000);
+
+    let popup2 = document.getElementById("popup2");
+function openPopup2() {
+    popup2.classList.add("open-popup");
+    showOverlay();
+}
+function closePopup2() {
+    popup2.classList.remove("open-popup");
+    hideOverlay();
+}
+
+function areAllProgressBarsFull(containerId) {
+        let container = document.getElementById(containerId);
+            let progressBars = container.querySelectorAll('.circular-progress');
+
+            for (let progressBar of progressBars) {
+                if (!progressBar.classList.contains("full")) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+startTimer();
+    </script>
+</body>
+</html>
